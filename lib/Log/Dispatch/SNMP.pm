@@ -62,13 +62,14 @@ sub _start_snmp_session {
     my $self = shift;
     my $error = '';
     
-    ($self->{'session'}, $error) = Net::SNMP->session(
-                                        -hostname    => $self->{'ManagementHost'},
-                                        -port        => $self->{'ManagementHostTrapListenPort'},
-                                        -version     => 'snmpv1', #TODO: make this configurable
-                                        -community   => $self->{'CommunityString'},
-                                        -nonblocking => 0,        #TODO: make this configurable
-                                        -domain      => 'udp4',   #TODO: make this configurable
+    ($self->{'session'}, $error) =
+        Net::SNMP->session(
+               -hostname    => $self->{'ManagementHost'},
+               -port        => $self->{'ManagementHostTrapListenPort'},
+               -version     => 'snmpv1', #TODO: make this configurable
+               -community   => $self->{'CommunityString'},
+               -nonblocking => 0,        #TODO: make this configurable
+               -domain      => 'udp4',   #TODO: make this configurable
     );
     croak "error starting SNMP session: $error\n"
         unless $self->{'session'};
@@ -95,7 +96,10 @@ sub log_message
     # this is separate in order to easen the future
     # (planned) integration with a special Layout
     # "SnmpDelimitedConversionPatternLayout" for Log4perl.
-    push @varbindlist, $self->{'ApplicationTrapOID'}, OCTET_STRING, $p{'message'};
+    push @varbindlist, $self->{'ApplicationTrapOID'},
+                       OCTET_STRING,
+                       $p{'message'}
+    ;
     
     if ( ! $self->{'session'}->trap(
                                 -enterprise   => $self->{'EnterpriseOID'},

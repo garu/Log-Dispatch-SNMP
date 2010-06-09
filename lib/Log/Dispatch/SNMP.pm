@@ -188,7 +188,7 @@ You can also share the same Log4j configuration file of any Java-based applicati
 
 =head1 DESCRIPTION
 
-Log::Dispatch::SNMP is an appender to send logging messages to a specified management host in SNMP-managed networks (with a MLM or SMNP management console or some kind), commonly found in large and/or distributed networks. It should be used under the L<< Log::Dispatch >> system or other compatible logging environments such as L<< Log::Log4perl >>.
+Log::Dispatch::SNMP is an appender to send logging messages to a specified management host in SNMP-managed networks (with a MLM or SMNP management console of some kind), commonly found in large and/or distributed networks. It should be used under the L<< Log::Dispatch >> system or other compatible logging environments such as L<< Log::Log4perl >>.
 
 Note that this appender does not attempt to provide full access to the SNMP API, so you cannot use it as an interface to SNMP GET or SET calls (you should check L<Net::SNMP> and others for this). All we do is pass your logging event as a TRAP.
 

@@ -34,8 +34,8 @@ sub _set_parameters {
     # validate user supplied parameters
     my %p = validate (@_, {
                 'ManagementHostTrapListenPort' => { type    => SCALAR,
-                                                  default => 162,
-                                                },
+                                                    default => 162,
+                                                  },
                 'ManagementHost'     => { type => SCALAR },
                 'EnterpriseOID'      => { type => SCALAR },
                 'LocalIPAddress'     => { type => SCALAR },

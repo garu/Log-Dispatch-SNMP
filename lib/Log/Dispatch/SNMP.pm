@@ -16,23 +16,41 @@ sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
-    my %p = @_;
+    # new versions of Log::Dispatch may complain about unknown options,
+    # so we take our options out of the equation (err.. hash)
+    my %parameters = @_;
+    my %snmp_parameters = ();
+    foreach my $key (qw(ManagementHostTrapListenPort
+                        ManagementHost
+                        EnterpriseOID
+                        LocalIPAddress
+                        LocalTrapSendPort
+                        GenericTrapType
+                        SpecificTrapType
+                        ApplicationTrapOID
+                        CommunityString
+                     )
+    ) {
+        if (exists $parameters{$key}) {
+            $snmp_parameters{$key} = $parameters{$key};
+            delete $parameters{$key};
+        }
+    }
 
     my $self = bless {}, $class;
 
-    $self->_basic_init(%p);
-    $self->_set_parameters(%p);
+    $self->_basic_init(%parameters);
+    $self->_set_snmp_parameters(%snmp_parameters);
     $self->_start_snmp_session();
     
     return $self;
 }
 
-sub _set_parameters {
+sub _set_snmp_parameters {
     my $self = shift;
 
     # validate user supplied parameters
     my %p = validate (@_, {
-                'name'
                 'ManagementHostTrapListenPort' => { type    => SCALAR,
                                                     default => 162,
                                                   },
@@ -218,7 +236,7 @@ By default a unique name will be generated. You should not depend on the form of
 
 =item min_level  *REQUIRED*
 
-A string or integer containing the minimum logging level this object will accept. Please refer to the L<Log::Dispatcher> documentation for further information.
+A string ('warning') or integer ('3') containing the minimum logging level this object will accept. Please refer to the L<Log::Dispatcher> documentation for further information.
 
 =item ManagementHost  *REQUIRED*
 

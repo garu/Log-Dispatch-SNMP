@@ -10,7 +10,7 @@ use Net::SNMP qw(:asn1);
 use Params::Validate qw(validate SCALAR);
 use Carp qw(carp croak); #TODO: option to warn or die or do nothing on errors
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
     my $proto = shift;
@@ -144,7 +144,7 @@ Log::Dispatch::SNMP - Object for logging to SNMP servers
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =head1 SYNOPSIS
 

@@ -1,23 +1,25 @@
 ---
-name: Log-Dispatch-SNMP
-version: 0.01
+abstract: 'Object for logging to SNMP servers'
 author:
   - 'Breno G. de Oliveira <garu@cpan.org>'
-abstract: Object for logging to SNMP servers
-license: perl
-resources:
-  license: ~
 build_requires:
   Carp: 0
   Log::Dispatch: 0
   Net::SNMP: 0
   Params::Validate: 0
   Test::More: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Log-Dispatch-SNMP
 provides:
   Log::Dispatch::SNMP:
     file: lib/Log/Dispatch/SNMP.pm
     version: 0.01
-generated_by: Module::Build version 0.32
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.01

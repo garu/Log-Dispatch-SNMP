@@ -134,14 +134,20 @@ If you're using Log::Dispatch:
 
     use Log::Dispatch::SNMP;
 
-    # all parameters are *required*, except for
-    # ManagementHostTrapListenPort (which defaults to 162),
-    # LocalTrapSendPort (161), CommunityString ('public')
-    # and GenericTrapType (6).
+    # *OPTIONAL* parameters (and their default values)
+    # name                         - defaults to a unique one
+    # max_level                    - defaults to no maximum
+    # ManagementHostTrapListenPort - defaults to 162
+    # LocalTrapSendPort            - defaults to 161
+    # CommunityString              - defaults to 'public'
+    # GenericTrapType              - defaults to 6
+    #
+    # other parameters are *REQUIRED*
     
     my $snmp = Log::Dispatch::SNMP->new(
                  name      => 'snmp',
                  min_level => 'debug',
+                 max_level => 'error',
                  
                  ManagementHost               => '192.168.0.1',
                  ManagementHostTrapListenPort => 162,
@@ -204,47 +210,49 @@ Instantiates a new logging object. It takes the following parameters (all are re
 
 =over 4
 
-=item name 
+=item name  (optional)
 
-A string containing the name of the object.
+A string containing the name of the logging object. This is useful if you want to refer to the object later, e.g. to log specifically to it or remove it (Log4perl users don't need this at all, as specific logs can be easily done via its configuration).
 
-=item min_level
+By default a unique name will be generated. You should not depend on the form of generated names, as they may change.
+
+=item min_level  *REQUIRED*
 
 A string or integer containing the minimum logging level this object will accept. Please refer to the L<Log::Dispatcher> documentation for further information.
 
-=item ManagementHost
+=item ManagementHost  *REQUIRED*
 
 A string containing the SNMP server host name (i.e. the destination for your traps)
 
-=item ManagementHostTrapListenPort
+=item ManagementHostTrapListenPort  (optional)
 
 The port number the SNMP server is listening to. This parameter is optional, and defaults to port 162.
 
-=item EnterpriseOID
+=item EnterpriseOID  *REQUIRED*
 
 A string containing the Enterprise Object Identifier (EOID).
 
-=item LocalIPAddress
+=item LocalIPAddress  *REQUIRED*
 
 A string containing the local IP address.
 
-=item LocalTrapSendPort
+=item LocalTrapSendPort  (optional)
 
 The port number to use locally. This parameter is optional, and defaults to port 161.
 
-=item GenericTrapType
+=item GenericTrapType  (optional)
 
 A number with the Generic Trap type. This parameter is optional, and defaults to 6 which corresponds to "enterpriseSpecific" (what you usually want under message logging).
 
-=item SpecificTrapType
+=item SpecificTrapType  *REQUIRED*
 
 A number with the specific Trap type.
 
-=item ApplicationTrapOID
+=item ApplicationTrapOID  *REQUIRED*
 
 A string containing the Object Identifier (OID) for the Application.
 
-=item CommunityString
+=item CommunityString  (optional)
 
 A string containing the SNMP community name. This parameter is optional, and defaults to 'public'.
 
@@ -315,7 +323,7 @@ L<Net::SNMP>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2009 Breno G. de Oliveira, all rights reserved.
+Copyright 2009-2010 Breno G. de Oliveira, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

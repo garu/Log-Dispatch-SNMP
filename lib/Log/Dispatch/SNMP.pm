@@ -12,8 +12,7 @@ use Carp qw(carp croak); #TODO: option to warn or die or do nothing on errors
 
 our $VERSION = '0.01';
 
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
@@ -33,6 +32,7 @@ sub _set_parameters {
 
     # validate user supplied parameters
     my %p = validate (@_, {
+                'name'
                 'ManagementHostTrapListenPort' => { type    => SCALAR,
                                                     default => 162,
                                                   },
@@ -75,8 +75,7 @@ sub _start_snmp_session {
         unless $self->{'session'};
 }
 
-sub log_message
-{
+sub log_message {
     my $self = shift;
     my %p = @_;
 
